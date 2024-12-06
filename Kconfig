@@ -22,9 +22,9 @@ menu "esp-eLog"
         By default, it deletes the oldest logs (like a FIFO), but that takes more binary size than doing nothing (in that case it can't store more logs)
 
     config ESP_ELOG_SIZE_TYPE
-        string "The type to use to store the log size. Can be empty for no storage, see help"
+        int "The size in bytes of the type to use to store the log size. Can be 0 for no storage, see help"
         depends on ESP_ELOG_ENABLED
-        default "uint8"
+        default 1
         help
         By default, the log header doesn't contain the stored size for the log and its arguments. This saves memory in the buffer, but when
         deleting logs, it means parsing the log format line to skip the arguments to find the next log position (so it has a cost in binary code size and runtime performance).
