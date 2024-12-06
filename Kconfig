@@ -1,0 +1,52 @@
+menu "esp-eLog"
+
+    config ESP_ELOG_ENABLED
+        bool "Enable the eLog component"
+        default y
+        help
+            This enables the eLog component.
+
+    config ESP_ELOG_BUFFER_SIZE
+        int "Ring buffer size"
+        depends on ESP_ELOG_ENABLED
+        default 512
+        help
+        Size of the log storage circular buffer, must be a power of 2
+
+    config ESP_ELOG_DELETE_OLD_LOG_IF_FULL
+        bool "Delete old logs when full"
+        depends on ESP_ELOG_ENABLED
+        default y
+        help
+        Define the strategy to use when the buffer is full.
+        By default, it deletes the oldest logs (like a FIFO), but that takes more binary size than doing nothing (in that case it can't store more logs)
+
+    config ESP_ELOG_SIZE_TYPE
+        string "The type to use to store the log size. Can be empty for no storage, see help"
+        depends on ESP_ELOG_ENABLED
+        default "uint8"
+        help
+        By default, the log header doesn't contain the stored size for the log and its arguments. This saves memory in the buffer, but when
+        deleting logs, it means parsing the log format line to skip the arguments to find the next log position (so it has a cost in binary code size and runtime performance).
+        If defined to a unsigned type, it will store the size for the log and its arguments after the header allowing to skip the format line parsing (binary code and performance saving)
+        at the cost of the given type storage in memory.
+
+    config ESP_ELOG_ERROR_TYPE
+        bool "Throw exception upon error"
+        depends on ESP_ELOG_ENABLED
+        default n
+        help
+        Define the error strategy when a log can't be saved in the log buffer.
+        By default, it calls a function in Log namespace with signature "void errorStoringArgumentsFor(const char* format)" is called
+        If set to y, an exception Log::Exception(const char* format) is thrown instead
+
+    config ESP_ELOG_PERSISTENT_LOG
+        bool "Enable sleep persistant log storage"
+        depends on ESP_ELOG_ENABLED
+        default y
+        help
+        If set, the log buffer is stored in the RTC memory (which is usually small). This memory can be kept powered on while sleeping so the buffer isn't cleared when waking up.
+        This can be useful to avoid loosing logs for sleepy device but it consumes precious RTC memory space.
+
+
+endmenu
