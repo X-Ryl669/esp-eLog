@@ -1,6 +1,6 @@
 set(srcs)
 
-list(APPEND srcs "lib/log.cpp")
+list(APPEND srcs "lib/elog.cpp")
 
 
 idf_component_register(SRCS ${srcs}
