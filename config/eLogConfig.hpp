@@ -27,4 +27,8 @@
   #define BackupMemory
 #endif
 
+#ifdef CONFIG_ESP_ELOG_USE_CALLBACK
+  #define UseLogCallback
+#endif
+
 #endif

@@ -48,5 +48,12 @@ menu "esp-eLog"
         If set, the log buffer is stored in the RTC memory (which is usually small). This memory can be kept powered on while sleeping so the buffer isn't cleared when waking up.
         This can be useful to avoid loosing logs for sleepy device but it consumes precious RTC memory space.
 
+    config ESP_ELOG_USE_CALLBACK
+        bool "Force calling a callback function for each log"
+        depends on ESP_ELOG_ENABLED
+        default n
+        help
+        If set, each call to log will trigger calling a log callback function, allowing for example, to output the log in realtime to the UART link. Adds 1 kB to the firmware size.
+
 
 endmenu
