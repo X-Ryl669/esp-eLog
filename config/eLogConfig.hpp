@@ -31,4 +31,8 @@
   #define UseLogCallback
 #endif
 
+// We need mutexes for multithread protection
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
+
 #endif
