@@ -31,6 +31,10 @@
   #define UseLogCallback
 #endif
 
+#ifdef CONFIG_ESP_ELOG_USE_LOG_COMPRESSION
+  #define UseLogCompression 1
+#endif
+
 // We need mutexes for multithread protection
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"

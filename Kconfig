@@ -55,5 +55,13 @@ menu "esp-eLog"
         help
         If set, each call to log will trigger calling a log callback function, allowing for example, to output the log in realtime to the UART link. Adds 1 kB to the firmware size.
 
+    config ESP_ELOG_USE_LOG_COMPRESSION
+        bool "Use log compression"
+        depends on ESP_ELOG_ENABLED
+        default n
+        help
+        If set, this enables detection of repeated log and prevent storage of multiple log item in the log buffer, thus reducing its size. The drawback is mainly in checking that parameters
+        are the same with the previous log which only happens when the format string is the same address. Recommended as enable if persistent log is enabled.
+
 
 endmenu
