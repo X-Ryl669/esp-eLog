@@ -1,0 +1,20 @@
+version: "0.8.0"
+description: "A C++ logging library for ESP32 using printf like syntax, that does compile-time validation of parameters, log compression for saving your precious memory, sleep resistant persistance"
+
+targets:
+  - esp32
+  - esp32s2
+  - esp32s3
+  - esp32c3
+  - esp32c6
+
+license: "MIT"
+
+tags:
+  - log
+  - sleep
+  - cplusplus
+  - compression
+
+url: "https://github.com/X-Ryl669/esp-eLog"
+repository: "https://github.com/X-Ryl669/esp-eLog.git"
